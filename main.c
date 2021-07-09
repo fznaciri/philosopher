@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:10:12 by fnaciri-          #+#    #+#             */
-/*   Updated: 2021/07/07 19:09:30 by mac              ###   ########.fr       */
+/*   Updated: 2021/07/08 17:17:02 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philosopher.h"
+#include <stdio.h>
 
 int init(t_param *param, int ac, char **av)
 {
     int i;
 
-    i = 0;
     param->n_ph = ft_atoi(av[1]);
     param->td = ft_atoi(av[2]);
     param->te = ft_atoi(av[3]);
@@ -31,9 +31,10 @@ int init(t_param *param, int ac, char **av)
         return (1);
     if (!param->forks)
         return (1);
+    i = 0;
     while (i < param->n_ph)
     {
-        param->philos[i].id = i;
+        param->philos[i].id = i + 1;
         param->philos[i].param = param;
         pthread_mutex_init(&param->forks[i], NULL);
         i++;
@@ -42,6 +43,24 @@ int init(t_param *param, int ac, char **av)
     return (0);
 }
 
+int start_threads(t_param *param)
+{
+    int i;
+    
+    i = 0;
+    while (i < param->n_ph)
+	{
+		pthread_create(&(param->philos[i].thread), NULL, &routine, &param->philos[i]);
+        i++;
+	}
+    i = 0;
+    while (i < param->n_ph)
+    {
+        pthread_join(param->philos[i].thread, NULL);
+        i++;
+    }
+    return (0);
+}
 int main(int ac, char **av)
 {
     t_param param;
@@ -51,7 +70,7 @@ int main(int ac, char **av)
     if (ac < 5 || ac > 6)
         ft_puterror();
     init(&param, ac, av);
-    start_threads(&param.philos);
-
+    start_threads(&param);
+    
     return (0);
 }

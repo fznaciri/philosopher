@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_errors.c                                     :+:      :+:    :+:   */
+/*   ft_puterror.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/07 17:44:09 by mac               #+#    #+#             */
-/*   Updated: 2021/07/07 17:46:15 by mac              ###   ########.fr       */
+/*   Created: 2021/07/07 17:31:50 by mac               #+#    #+#             */
+/*   Updated: 2021/07/08 17:00:41 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/utils.h"
 
-void	check_errors(int ac, char **av)
+void	ft_puterror(void)
 {
-	int	i;
-
-	i = 0;
-	while (av[ac][i])
-	{
-		if (!(ft_isdigit(av[ac][i])))
-			ft_puterror();
-		i++;
-	}
+	ft_putendl_fd("Error", 2);
+	//exit(1);
 }

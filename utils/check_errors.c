@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   check_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/07 17:30:06 by mac               #+#    #+#             */
-/*   Updated: 2021/07/08 16:59:12 by fnaciri-         ###   ########.fr       */
+/*   Created: 2021/07/07 17:44:09 by mac               #+#    #+#             */
+/*   Updated: 2021/07/08 16:59:23 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+// #include "../includes/utils.h"
 
-#include <unistd.h>
+// void	check_errors(int ac, char **av)
+// {
+// 	int	i;
 
-long	ft_atoi(const char *s);
-void	ft_puterror(void);
-void	ft_putendl_fd(char *s, int fd);
-//void	check_errors(int ac, char **av);
-void	ft_putnbr_fd(int n, int fd);
-#endif
+// 	i = 0;
+// 	while (av[ac][i])
+// 	{
+// 		if (!(ft_isdigit(av[ac][i])))
+// 			ft_puterror();
+// 		i++;
+// 	}
+// }

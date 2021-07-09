@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mac <mac@student.42.fr>                    +#+  +:+       +#+         #
+#    By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/07 17:16:37 by mac               #+#    #+#              #
-#    Updated: 2021/07/07 17:19:07 by mac              ###   ########.fr        #
+#    Updated: 2021/07/08 17:05:38 by fnaciri-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			= main.c utils/*.c srcs/*.c
-OBJS			= $(SRCS:.c=.o)
+SRCS			= 	main.c \
+					utils/*.c \
+					srcs/*.c
 
 CC				= gcc
 RM				= rm -f
@@ -22,14 +23,14 @@ NAME			= philo
 
 all:			$(NAME)
 
-$(NAME):		$(OBJS)
-				gcc ${CFLAGS} -o ${NAME} ${OBJS} ${LIBS}
+$(NAME):		$(SRCS)
+				@$(CC) ${CFLAGS} $(SRCS) -o ${NAME} ${LIBS}
 
 clean:
-				$(RM) $(OBJS) 
+				@$(RM) $(NAME) 
 
 fclean:			clean
-				$(RM) $(NAME)
+				@$(RM) $(NAME)
 
 re:				fclean $(NAME)
 

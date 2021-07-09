@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puterror.c                                      :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/07 17:31:50 by mac               #+#    #+#             */
-/*   Updated: 2021/07/07 17:32:08 by mac              ###   ########.fr       */
+/*   Created: 2021/07/08 16:04:05 by fnaciri-          #+#    #+#             */
+/*   Updated: 2021/07/08 17:01:34 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/utils.h"
 
-void	ft_puterror(void)
+void	ft_putnbr_fd(int n, int fd)
 {
-	ft_putendl_fd("Error", 2);
-	exit(1);
+	unsigned int nb;
+	char c;
+	
+	nb = n;
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		nb = -n;
+	}
+	if (nb >= 10)
+	{
+		ft_putnbr_fd(nb / 10, fd);
+	}
+	c = (nb % 10) + '0';
+	write(fd, &c, 1);
 }

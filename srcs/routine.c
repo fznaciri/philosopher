@@ -6,7 +6,7 @@
 /*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 13:00:23 by fnaciri-          #+#    #+#             */
-/*   Updated: 2021/07/10 18:13:33 by fnaciri-         ###   ########.fr       */
+/*   Updated: 2021/07/10 18:45:37 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	get_left_right(t_philo *philo, int *l, int *r)
 void display(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->param->display);
+	ft_putnbr_fd(get_utime(philo->param->t), 1);
+	write(1, " ", 1);
 	ft_putnbr_fd(philo->id, 1);
 	ft_putendl_fd(str, 1);
 	pthread_mutex_unlock(&philo->param->display);
@@ -43,7 +45,10 @@ void    take_forks(t_philo *philo)
 void eat(t_philo *philo)
 {
 	display(philo, " is eating");
+	philo->is_eating = 1;
 	usleep(philo->param->te * 1000);
+	philo->last_te = get_time();
+	philo->is_eating = 0;
 }
 
 void sleeping(t_philo *philo)

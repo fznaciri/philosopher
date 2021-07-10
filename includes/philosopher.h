@@ -6,7 +6,7 @@
 /*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 16:55:59 by fnaciri-          #+#    #+#             */
-/*   Updated: 2021/07/08 17:07:27 by fnaciri-         ###   ########.fr       */
+/*   Updated: 2021/07/10 18:47:19 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_philo
 {
     pthread_t       thread;
     int             id;
+    int             is_eating;
+    size_t          last_te;
     t_param  *param;
 } t_philo;
 
@@ -36,7 +38,8 @@ typedef struct s_param
     unsigned int    ts;
     unsigned int    td;
     int             n_meals;
-    unsigned int    time;
+    unsigned int    t;
+    pthread_t       supervisor;
     t_philo         *philos;
     pthread_mutex_t *forks;
     pthread_mutex_t display;
@@ -46,4 +49,6 @@ int init(t_param *param, int ac, char **av);
 int start_threads(t_param *param);
 void    take_forks(t_philo *philo);
 void    *routine(void *philo);
+void *supervisor(void *param);
+
 #endif 

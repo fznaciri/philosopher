@@ -6,7 +6,7 @@
 /*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:10:12 by fnaciri-          #+#    #+#             */
-/*   Updated: 2021/07/08 17:17:02 by fnaciri-         ###   ########.fr       */
+/*   Updated: 2021/07/10 18:46:24 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int init(t_param *param, int ac, char **av)
     param->td = ft_atoi(av[2]);
     param->te = ft_atoi(av[3]);
     param->ts = ft_atoi(av[4]);
+    param->t = get_time();
     if (ac == 6)
         param->n_meals = ft_atoi(av[4]);
     else
@@ -36,6 +37,8 @@ int init(t_param *param, int ac, char **av)
     {
         param->philos[i].id = i + 1;
         param->philos[i].param = param;
+        param->philos[i].is_eating = 0;
+        param->philos[i].last_te = 0;
         pthread_mutex_init(&param->forks[i], NULL);
         i++;
     }
@@ -53,14 +56,16 @@ int start_threads(t_param *param)
 		pthread_create(&(param->philos[i].thread), NULL, &routine, &param->philos[i]);
         i++;
 	}
-    i = 0;
-    while (i < param->n_ph)
-    {
-        pthread_join(param->philos[i].thread, NULL);
-        i++;
-    }
     return (0);
 }
+
+int start_supervisor(t_param  *param)
+{
+    pthread_create(&param->supervisor, NULL, &supervisor, param);
+    pthread_join(param->supervisor, NULL);
+    return (0);
+}
+
 int main(int ac, char **av)
 {
     t_param param;
@@ -70,7 +75,6 @@ int main(int ac, char **av)
     if (ac < 5 || ac > 6)
         ft_puterror();
     init(&param, ac, av);
-    start_threads(&param);
-    
+    start_supervisor(&param);
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 13:00:23 by fnaciri-          #+#    #+#             */
-/*   Updated: 2021/07/08 17:30:25 by fnaciri-         ###   ########.fr       */
+/*   Updated: 2021/07/10 18:13:33 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void    take_forks(t_philo *philo)
 	int r;
 	get_left_right(philo, &l, &r);
     pthread_mutex_lock(&philo->param->forks[l]);
-	pthread_mutex_lock(&philo->param->forks[r]);
 	display(philo," has taking a fork");
+	pthread_mutex_lock(&philo->param->forks[r]);
 	display(philo," has taking a fork");
 }
 
@@ -55,16 +55,15 @@ void sleeping(t_philo *philo)
 	pthread_mutex_unlock(&philo->param->forks[r]);
 	display(philo, " is sleeping");
 	usleep(philo->param->ts * 1000);
-	display(philo, " is thinking");
+	display(philo, " is thinking"); 
 }
 
 void    *routine(void *philo)
 {
-	while (1)
-	{
-		take_forks(philo);
-		eat(philo);
-		sleeping(philo);
-	}
+	if (((t_philo *)philo)->id % 2 == 0)
+		usleep(200);
+	take_forks(philo);
+	eat(philo);
+	sleeping(philo);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:10:12 by fnaciri-          #+#    #+#             */
-/*   Updated: 2021/07/10 18:46:24 by fnaciri-         ###   ########.fr       */
+/*   Updated: 2021/07/12 14:59:09 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int init(t_param *param, int ac, char **av)
     param->ts = ft_atoi(av[4]);
     param->t = get_time();
     if (ac == 6)
-        param->n_meals = ft_atoi(av[4]);
+        param->n_meals = ft_atoi(av[5]);
     else
-        param->n_meals = 0;
+        param->n_meals = -1;
     param->philos = (t_philo*)malloc(sizeof(*(param->philos)) * param->n_ph);
     param->forks = (pthread_mutex_t*)malloc(sizeof(*(param->forks)) * param->n_ph);
     if (!param->philos)
@@ -38,8 +38,10 @@ int init(t_param *param, int ac, char **av)
         param->philos[i].id = i + 1;
         param->philos[i].param = param;
         param->philos[i].is_eating = 0;
-        param->philos[i].last_te = 0;
+        param->philos[i].last_te = get_time();
+        param->philos[i].meals = 0;
         pthread_mutex_init(&param->forks[i], NULL);
+        pthread_mutex_init(&param->philos[i].eating, NULL);
         i++;
     }
     pthread_mutex_init(&param->display, NULL);

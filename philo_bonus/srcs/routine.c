@@ -6,7 +6,7 @@
 /*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 13:00:23 by fnaciri-          #+#    #+#             */
-/*   Updated: 2021/09/01 14:50:39 by fnaciri-         ###   ########.fr       */
+/*   Updated: 2021/09/04 14:23:40 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,19 @@ void eat(t_philo *philo)
 
 void    *routine(t_philo *philo)
 {
-	if (philo->id % 2 == 0)
-		usleep(200);
 	while (1)
 	{
 		sem_wait(philo->param->forks);
 		display(philo," has taking a fork", KBLU);
+		philo->param->forks--;
 		sem_wait(philo->param->forks);
 		display(philo," has taking a fork", KBLU);
+		philo->param->forks--;
 		eat(philo);
 		sem_post(philo->param->forks);
+		philo->param->forks++;
 		sem_post(philo->param->forks);
+		philo->param->forks++;
 		display(philo, " is sleeping", KMAG);
 		ft_usleep(philo->param->ts);
 		display(philo, " is thinking", KCYN);

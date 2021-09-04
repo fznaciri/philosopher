@@ -6,7 +6,7 @@
 /*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 17:38:34 by mac               #+#    #+#             */
-/*   Updated: 2021/09/01 15:51:54 by fnaciri-         ###   ########.fr       */
+/*   Updated: 2021/09/04 14:57:03 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int init(t_param *param, int ac, char **av)
     if (!check_errors(ac, av))
         ft_puterror("Not Valid Arguments");
     param->n_ph = ft_atoi(av[1]);
+    param->n_forks = param->n_ph;
     param->td = ft_atoi(av[2]);
     param->te = ft_atoi(av[3]);
     param->ts = ft_atoi(av[4]);
@@ -31,6 +32,10 @@ int init(t_param *param, int ac, char **av)
     param->philos = (t_philo*)malloc(sizeof(*(param->philos)) * param->n_ph);
     if (!param->philos)
         ft_puterror("Allocation Failed!");
+    sem_unlink("/philo_display");
+    sem_unlink("/philo_forks");
+    param->display = sem_open("/philo_display", O_CREAT | O_EXCL, S_IRWXU, 1);
+    param->forks = sem_open("/philo_forks", O_CREAT | O_EXCL, S_IRWXU, param->n_ph);
     i = 0;
     while (i < param->n_ph)
     {
@@ -41,10 +46,6 @@ int init(t_param *param, int ac, char **av)
         param->philos[i].meals = 0;
         i++;
     }
-    sem_unlink("/philo_display");
-    sem_unlink("/philo_forks");
-    param->display = sem_open("/philo_display", O_CREAT | O_EXCL, S_IRWXU, 1);
-    param->forks = sem_open("/philo_forks", O_CREAT | O_EXCL, S_IRWXU, param->n_ph);
     return (0);
 }
 
@@ -64,25 +65,24 @@ int start(t_param *param)
             param->philos[i].eating = sem_open("/philo_eating", O_CREAT | O_EXCL,
                         S_IRWXU, 1);
             pthread_create(&param->philos[i].supervisor, NULL, supervisor, &param->philos[i]);
-            if (param->philos[i].id % 2 == 0)
-                usleep(100);
             routine(&param->philos[i]);
             exit (0);
         }
-        pthread_join(param->philos[i].supervisor, NULL);
         i++;
     }
     i = 0;
     while (i < param->n_ph)
     {
         waitpid(-1, &status, 0);
-		status = WEXITSTATUS(status);
+		// status = WEXITSTATUS(status);
+        // if (!status)
+        //     sem_post(param->display);
         i++;
     }
     i = 0;
     while (++i < param->n_ph)
 	{
-        kill(param->philos[i].id, SIGTERM);
+        kill(param->philos[i].pid, SIGTERM);
         sem_close(param->philos[i].eating); 
     }	
     sem_wait(param->display);

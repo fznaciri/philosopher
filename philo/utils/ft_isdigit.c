@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/08 16:04:05 by fnaciri-          #+#    #+#             */
-/*   Updated: 2021/09/04 14:40:33 by fnaciri-         ###   ########.fr       */
+/*   Created: 2021/08/28 11:43:57 by mac               #+#    #+#             */
+/*   Updated: 2021/09/04 14:37:27 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/utils.h"
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_isdigit(int c)
 {
-	unsigned int	nb;
-	char			c;
-
-	nb = n;
-	if (n < 0)
-	{
-		write(fd, "-", 1);
-		nb = -n;
-	}
-	if (nb >= 10)
-	{
-		ft_putnbr_fd(nb / 10, fd);
-	}
-	c = (nb % 10) + '0';
-	write(fd, &c, 1);
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
 }

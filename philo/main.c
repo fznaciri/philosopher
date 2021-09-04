@@ -6,7 +6,7 @@
 /*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:10:12 by fnaciri-          #+#    #+#             */
-/*   Updated: 2021/07/12 14:59:09 by fnaciri-         ###   ########.fr       */
+/*   Updated: 2021/09/04 15:33:49 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int init(t_param *param, int ac, char **av)
 {
     int i;
 
+    if (!check_errors(ac, av))
+        ft_puterror("Not Valid Arguments");
     param->n_ph = ft_atoi(av[1]);
+    param->n_forks = param->n_ph;`
     param->td = ft_atoi(av[2]);
     param->te = ft_atoi(av[3]);
     param->ts = ft_atoi(av[4]);
@@ -75,7 +78,7 @@ int main(int ac, char **av)
     if (ac == 1)
 		return (0);
     if (ac < 5 || ac > 6)
-        ft_puterror();
+        ft_puterror("Not valid Number of Arguments");
     init(&param, ac, av);
     start_supervisor(&param);
     return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 16:55:59 by fnaciri-          #+#    #+#             */
-/*   Updated: 2021/08/28 17:44:44 by mac              ###   ########.fr       */
+/*   Updated: 2021/09/04 14:22:02 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_philo
 typedef struct s_param
 {
     int             n_ph;
+    int             n_forks;
     unsigned int    te;
     unsigned int    ts;
     unsigned int    td;

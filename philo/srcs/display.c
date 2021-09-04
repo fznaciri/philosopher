@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/08 16:04:05 by fnaciri-          #+#    #+#             */
-/*   Updated: 2021/09/04 14:40:33 by fnaciri-         ###   ########.fr       */
+/*   Created: 2021/09/04 15:34:46 by fnaciri-          #+#    #+#             */
+/*   Updated: 2021/09/04 15:35:08 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/utils.h"
+#include "../includes/philosopher.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void	display(t_philo *philo, char *str, char *c)
 {
-	unsigned int	nb;
-	char			c;
-
-	nb = n;
-	if (n < 0)
-	{
-		write(fd, "-", 1);
-		nb = -n;
-	}
-	if (nb >= 10)
-	{
-		ft_putnbr_fd(nb / 10, fd);
-	}
-	c = (nb % 10) + '0';
-	write(fd, &c, 1);
+	pthread_mutex_lock(&philo->param->display);
+	ft_putstr_fd(c, 1);
+	ft_putnbr_fd(get_utime(philo->param->t), 1);
+	write(1, " ", 1);
+	ft_putnbr_fd(philo->id, 1);
+	ft_putendl_fd(str, 1);
+	ft_putstr_fd(KNRM, 1);
+	pthread_mutex_unlock(&philo->param->display);
 }

@@ -6,14 +6,15 @@
 /*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:31:50 by mac               #+#    #+#             */
-/*   Updated: 2021/07/08 17:00:41 by fnaciri-         ###   ########.fr       */
+/*   Updated: 2021/09/04 14:38:37 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/utils.h"
 
-void	ft_puterror(void)
+void	ft_puterror(char *str)
 {
-	ft_putendl_fd("Error", 2);
-	//exit(1);
+	ft_putstr_fd("Error: ", 2);
+	ft_putendl_fd(str, 2);
+	exit(1);
 }

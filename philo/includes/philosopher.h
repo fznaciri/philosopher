@@ -6,7 +6,7 @@
 /*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 16:55:59 by fnaciri-          #+#    #+#             */
-/*   Updated: 2021/09/04 15:27:58 by fnaciri-         ###   ########.fr       */
+/*   Updated: 2021/09/04 16:24:37 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_param
 }				t_param;
 
 int		init(t_param *param, int ac, char **av);
+void	get_data(t_param *param, int ac, char **av);
 int		start_threads(t_param *param);
 void	take_forks(t_philo *philo);
 void	*routine(void *philo);

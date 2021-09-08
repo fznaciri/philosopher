@@ -6,7 +6,7 @@
 /*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 16:04:05 by fnaciri-          #+#    #+#             */
-/*   Updated: 2021/07/08 17:01:34 by fnaciri-         ###   ########.fr       */
+/*   Updated: 2021/09/04 16:31:44 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	unsigned int nb;
-	char c;
-	
+	unsigned int	nb;
+	char			c;
+
 	nb = n;
 	if (n < 0)
 	{

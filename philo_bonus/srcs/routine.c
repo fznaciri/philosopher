@@ -6,13 +6,13 @@
 /*   By: fnaciri- <fnaciri-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 13:00:23 by fnaciri-          #+#    #+#             */
-/*   Updated: 2021/09/04 14:23:40 by fnaciri-         ###   ########.fr       */
+/*   Updated: 2021/09/08 16:39:07 by fnaciri-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
 
-void display(t_philo *philo, char *str, char *c)
+void	display(t_philo *philo, char *str, char *c)
 {
 	sem_wait(philo->param->display);
 	ft_putstr_fd(c, 1);
@@ -24,7 +24,7 @@ void display(t_philo *philo, char *str, char *c)
 	sem_post(philo->param->display);
 }
 
-void eat(t_philo *philo)
+void	eat(t_philo *philo)
 {
 	display(philo, " is eating", KGRN);
 	sem_wait(philo->eating);
@@ -36,21 +36,21 @@ void eat(t_philo *philo)
 	philo->is_eating = 0;
 }
 
-void    *routine(t_philo *philo)
+void	*routine(t_philo *philo)
 {
 	while (1)
 	{
 		sem_wait(philo->param->forks);
-		display(philo," has taking a fork", KBLU);
-		philo->param->forks--;
+		display(philo, " has taking a fork", KBLU);
+		philo->param->n_forks--;
 		sem_wait(philo->param->forks);
-		display(philo," has taking a fork", KBLU);
-		philo->param->forks--;
+		display(philo, " has taking a fork", KBLU);
+		philo->param->n_forks--;
 		eat(philo);
 		sem_post(philo->param->forks);
-		philo->param->forks++;
+		philo->param->n_forks++;
 		sem_post(philo->param->forks);
-		philo->param->forks++;
+		philo->param->n_forks++;
 		display(philo, " is sleeping", KMAG);
 		ft_usleep(philo->param->ts);
 		display(philo, " is thinking", KCYN);
